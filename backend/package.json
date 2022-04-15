@@ -6,10 +6,7 @@
   "scripts": {
     "start": "nodemon server.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/cedricfp/CedricFrapier_7_09042022.git"
-  },
+
   "author": "",
   "license": "ISC",
   "dependencies": {
