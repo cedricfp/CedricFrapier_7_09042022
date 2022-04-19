@@ -18,4 +18,6 @@ app.use((req, res, next) => {
   next();
 });
 
+const { getAllUsers } = require("./models/userModel");
+getAllUsers();
 module.exports = app;
