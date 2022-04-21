@@ -1,6 +1,9 @@
+require("dotenv").config();
 const express = require("express");
-
 const app = express();
+const cors = require("cors");
+const path = require("path");
+const helmet = require("helmet");
 
 app.use(express.json());
 
@@ -18,6 +21,4 @@ app.use((req, res, next) => {
   next();
 });
 
-const { getAllUsers } = require("./models/userModel");
-getAllUsers();
 module.exports = app;
