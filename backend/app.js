@@ -4,6 +4,7 @@ const app = express();
 const cors = require("cors");
 const path = require("path");
 const helmet = require("helmet");
+const userRoute = require("./routes/user");
 
 app.use(express.json());
 
@@ -21,4 +22,6 @@ app.use((req, res, next) => {
   next();
 });
 
+// Pour cette route, on utilise le router usersRoutes
+app.use("/user", userRoute);
 module.exports = app;

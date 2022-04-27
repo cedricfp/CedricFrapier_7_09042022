@@ -4,7 +4,7 @@ const database = require("./database");
 module.exports.addUser = async function (user) {
   try {
     const res = await database.query(
-      "INSERT INTO users(prenom, nom, pseudo, email, password, role) VALUES (?,?,?,?,?)",
+      "INSERT INTO users(prenom, nom, pseudo, email, password) VALUES (?,?,?,?)",
       [user.firstname, user.lastname, user.email, user.password, 0]
     );
   } catch (error) {

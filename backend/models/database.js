@@ -1,11 +1,7 @@
-const mariadb = require("mariadb");
-const pool = mariadb.createPool({
-  host: process.env.DB_HOST,
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  database: process.env.DB_DATABASE,
-  connectionLimit: 5,
-});
+const mysql = require("mysql2/promise");
+
+// create the connection to database
+console.log(process.env.DB_USER, process.env.DB_DATABASE);
 
 // Fonction pour récupérer un seul model.
 async function getOne(sql, data = []) {
@@ -17,8 +13,16 @@ async function getOne(sql, data = []) {
 async function query(sql, data = []) {
   let conn;
   try {
-    conn = await pool.getConnection();
-    const response = await conn.query(sql, data);
+    console.log(conn);
+    conn = await mysql.createConnection({
+      //host: process.env.DB_HOST,
+      user: process.env.DB_USER,
+      password: process.env.DB_PASSWORD,
+      database: process.env.DB_DATABASE,
+      //connectionLimit: 5,
+    });
+    console.log("1.", conn);
+    const response = await conn.execute(sql, data);
     if (response.meta !== undefined) delete response.meta;
     return response;
   } catch (err) {
@@ -28,5 +32,7 @@ async function query(sql, data = []) {
   }
 }
 
-module.exports.getOne = getOne;
-module.exports.query = query;
+module.exports = {
+  getOne,
+  query,
+};
