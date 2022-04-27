@@ -8,6 +8,7 @@ module.exports = (req, res, next) => {
     //On verifie le token avec la clé secret generer grace a dotenv
     const decodedToken = jwt.verify(token, process.env.SECRETTOKEN);
     //On récupère le userId du token
+    // @ts-ignore
     const userId = decodedToken.userId;
     //Ajout de l'user du token à l'objet requête
     req.auth = { userId };

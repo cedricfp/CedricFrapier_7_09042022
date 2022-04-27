@@ -3,7 +3,7 @@ const database = require("./database");
 //Ajout d'une publication.
 module.exports.addPost = async function (data) {
   return await database.query(
-    "INSERT INTO `posts` (`utilisateur_id`, `message`,  `datecreation`) VALUES (?, ?, ?)",
+    "INSERT INTO `posts` (`utilisateur_id`, `message`,  `datecreation`) VALUES (?, ?, NOW)",
     [data.utilisateur_id, data.message]
   );
 };

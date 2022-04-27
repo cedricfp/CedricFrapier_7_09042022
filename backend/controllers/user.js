@@ -2,7 +2,7 @@ require("dotenv").config();
 
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
-const User = require("../models/user");
+const userModel = require("../models/user");
 
 //Middleware de création de l'utilisateur
 exports.signup = async (req, res, next) => {
@@ -16,10 +16,11 @@ exports.signup = async (req, res, next) => {
   }
 };
 
-//Middleware d'authentification
+//Middleware d'authentificatio
+
 exports.login = async (req, res, next) => {
   try {
-    const userData = await User.findUserByEmail(req.body.email); // Recherche de l'utilisateur par son email dans la BDD.
+    const userData = await userModel.findUserByEmail(req.body.email); // Recherche de l'utilisateur par son email dans la BDD.
     const valid = await bcrypt.compare(
       // On utilise la méthode compare de bcrypt pour comparer le MDP saisie et celui enegistré dans la BDD
       req.body.password,
