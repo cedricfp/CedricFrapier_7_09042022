@@ -1,5 +1,5 @@
 require("dotenv").config();
-
+const validator = require("validator").default;
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/user");
@@ -7,9 +7,23 @@ const userModel = require("../models/user");
 //Middleware de création de l'utilisateur
 exports.signup = async (req, res, next) => {
   try {
+    const { email, nom, password, prenom } = req.body;
+
+    if (!validator.isStrongPassword(password))
+      throw {
+        message:
+          "le mot de passe doit contenir au moins un chiffre, une lettre et doit contenir au moins 8 caractères",
+      };
+    if (!validator.isEmail(email))
+      throw { message: "le format de l'email est incorrecte" };
+    if (!validator.isAlpha(nom, "fr-FR"))
+      throw { message: "veuillez saisir un nom correct" };
+    if (!validator.isAlpha(prenom, "fr-FR"))
+      throw { message: "veuillez saisir un nom correct" };
+
     //cryptage du mdp avec itération hash 10 tours
     req.body.password = await bcrypt.hash(req.body.password, 10);
-    await User.addUser(req.body);
+    await userModel.addUser(req.body);
     res.status(201).json({ message: "Utilisateur créé !" });
   } catch (error) {
     res.status(400).json({ error });
@@ -21,18 +35,19 @@ exports.signup = async (req, res, next) => {
 exports.login = async (req, res, next) => {
   try {
     const userData = await userModel.findUserByEmail(req.body.email); // Recherche de l'utilisateur par son email dans la BDD.
+
     const valid = await bcrypt.compare(
       // On utilise la méthode compare de bcrypt pour comparer le MDP saisie et celui enegistré dans la BDD
       req.body.password,
-      userData.password
+      userData[0].password
     );
     if (!valid) throw { status: 401, msg: "Mot de passe incorrect !" };
     res.status(200).json({
-      userId: userData.id,
+      userId: userData[0].id,
       /* vérifier le token à chaque fois avec la fonction 
             sign (payload, clé secrete pour encodage, config expiration)*/
       token: jwt.sign(
-        { userId: userData.id },
+        { userId: userData[0].id },
         process.env.SECRET,
         { expiresIn: "24h" } // Durée de validité du token.
       ),

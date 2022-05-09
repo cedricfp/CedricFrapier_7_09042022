@@ -4,8 +4,7 @@ const database = require("./database");
 module.exports.addUser = async function (user) {
   try {
     const res = await database.query(
-      "INSERT INTO users(prenom, nom, pseudo, email, password) VALUES (?,?,?,?)",
-      [user.firstname, user.lastname, user.email, user.password, 0]
+      `INSERT INTO users(prenom, nom, email, password) VALUES ('${user.prenom}','${user.nom}','${user.email}','${user.password}')`
     );
   } catch (error) {
     throw {
@@ -22,7 +21,9 @@ module.exports.findUserByEmail = async function (email) {
       "SELECT * FROM `users` WHERE `email` = ?",
       [email]
     );
-    if (res === null) throw { status: 401, msg: "L'utilisateur n'existe pas" };
+    // @ts-ignore
+    if (res.length === 0)
+      throw { status: 401, msg: "L'utilisateur n'existe pas" };
     return res;
   } catch (error) {
     throw {
@@ -53,7 +54,7 @@ module.exports.modifyUser = async function (user, id) {
   try {
     const res = await database.getOne(
       "UPDATE users SET prenom=?, nom=? WHERE id=?",
-      [user.firstname, user.lastname, id]
+      [user.prenom, user.nom, id]
     );
     return res;
   } catch (error) {

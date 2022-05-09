@@ -13,7 +13,6 @@ async function getOne(sql, data = []) {
 async function query(sql, data = []) {
   let conn;
   try {
-    console.log(conn);
     conn = await mysql.createConnection({
       //host: process.env.DB_HOST,
       user: process.env.DB_USER,
@@ -21,14 +20,16 @@ async function query(sql, data = []) {
       database: process.env.DB_DATABASE,
       //connectionLimit: 5,
     });
-    console.log("1.", conn);
+    console.log("connection reussie");
     const response = await conn.execute(sql, data);
+    console.log("requete effectuee");
     if (response.meta !== undefined) delete response.meta;
     return response;
   } catch (err) {
+    console.log(err);
     throw err;
   } finally {
-    if (conn) conn.release(); //release to pool
+    if (conn) conn.destroy(); //release to pool
   }
 }
 
