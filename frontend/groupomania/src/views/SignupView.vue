@@ -30,7 +30,6 @@
 <script>
 
 import axios from 'axios';
-import { Notyf } from 'notyf';
 
 export default {
   data() {
@@ -41,12 +40,6 @@ export default {
       password: "",
     }
   },
-  created() {
-    this.notyf = new Notyf({
-      duration: 3500
-    });
-  },
-  
 
   methods: {
     async createUser() {
@@ -68,13 +61,18 @@ export default {
 
         await axios.post(backendUrl, userToCreate)
 
-        this.Notyf.success('Votre compte à bien été créé !')
-        
+        this.$notify('Utilisateur creéé !')
+        this.$router.push("/")
 
         
       } catch (error) {
-        console.log(error)
-        //affiche un message d'erreur
+        let message = ""
+        if (error.response) {
+          message = error.response.data.message
+        } else {
+          message = error
+        }
+        this.$notify({type: 'error', text: message})
         
       }
       

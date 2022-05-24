@@ -3,8 +3,9 @@ const comment = require("../models/comment");
 //Creer un commentaire
 exports.createComment = async (req, res, next) => {
   try {
-    const { userId, message, postId } = req.body;
-    await comment.addComment({ userId, message, postId });
+    const userId = req.auth.userId;
+    const { content, postId } = req.body;
+    await comment.addComment({ userId, content, postId });
     res.status(201).json({ msg: "commentaire ajouté" });
   } catch (err) {
     res.status(500).json({ err });
@@ -16,7 +17,7 @@ exports.modifyComment = async (req, res, next) => {
   try {
     const verifComment = await comment.getOneComment(req.params.id);
     //Si il n'y a pas de commentaire ou que le commentaire a modifié n'est pas de l'auteur(même id)
-    if (verifComment === null || verifComment.id_author !== req.body.id) {
+    if (verifComment === null || verifComment.userid !== req.body.id) {
       return res
         .status(401)
         .json({ msg: "ce message ne peux pas être modifié" });
@@ -31,7 +32,7 @@ exports.deleteComment = async (req, res, next) => {
   try {
     const verifComment = await comment.getOneComment(req.params.id);
     //Si il n'y a pas de commentaire ou que le commentaire a modifié n'est pas de l'auteur(même id)
-    if (verifComment === null || verifComment.id_author !== req.body.id) {
+    if (verifComment === null || verifComment.userid !== req.body.id) {
       return res
         .status(401)
         .json({ msg: "ce message ne peux pas être supprimé" });

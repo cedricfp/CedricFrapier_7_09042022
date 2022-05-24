@@ -6,7 +6,8 @@ module.exports = (req, res, next) => {
     // split retourne un array avec bearer en 0 et le token en 1
     const token = req.headers.authorization.split(" ")[1];
     //On verifie le token avec la clé secret generer grace a dotenv
-    const decodedToken = jwt.verify(token, process.env.SECRETTOKEN);
+    const decodedToken = jwt.verify(token, process.env.SECRET);
+
     //On récupère le userId du token
     // @ts-ignore
     const userId = decodedToken.userId;

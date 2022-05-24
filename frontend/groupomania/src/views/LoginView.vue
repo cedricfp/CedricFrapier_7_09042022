@@ -47,9 +47,10 @@ export default {
           (this.email === "" || this.password === "")
         )throw "veuillez saisir tous les champs";
 
-        await axios.post(backendUrl, userToLog)
+        const res = await axios.post(backendUrl, userToLog)
+        localStorage.setItem('token', res.data.token)
 
-        //redirection vers le home
+        // redirection vers le home
         this.$router.push('/home')
         
       } catch (error) {

@@ -3,8 +3,8 @@ const database = require("./database");
 //Ajout d'un commentaire.
 module.exports.addComment = async function (data) {
   return await database.query(
-    "INSERT INTO `comments` (`utilisateur_id`, `commentaire`, `datecreation`, `post_id`) VALUES ( ?, ?, ?, ?)",
-    [data.userId, data.message, data.postId]
+    "INSERT INTO `comments` (`userid`, `commentaire`, `datecreation`, `postid`) VALUES ( ?, ?, NOW(), ?)",
+    [data.userId, data.content, data.postId]
   );
 };
 

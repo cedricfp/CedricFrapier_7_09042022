@@ -26,7 +26,8 @@ exports.signup = async (req, res, next) => {
     await userModel.addUser(req.body);
     res.status(201).json({ message: "Utilisateur créé !" });
   } catch (error) {
-    res.status(400).json({ error });
+    // throw { message: "Cet utilisateur existe deja" };
+    res.status(500).json({ message: "Cet utilisateur existe deja" });
   }
 };
 

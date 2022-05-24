@@ -5,6 +5,8 @@ const cors = require("cors");
 const path = require("path");
 const helmet = require("helmet");
 const userRoute = require("./routes/user");
+const postRoute = require("./routes/post");
+const commentRoute = require("./routes/comment");
 
 app.use(express.json());
 
@@ -22,6 +24,11 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(express.static(__dirname + "/images"));
+
 // Pour cette route, on utilise le router usersRoutes
 app.use("/user", userRoute);
+app.use("/post", postRoute);
+app.use("/comment", commentRoute);
+
 module.exports = app;
