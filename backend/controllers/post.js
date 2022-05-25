@@ -11,8 +11,6 @@ exports.createPost = async (req, res, next) => {
       });
       return;
     }
-    console.log(req.auth.userId);
-    console.log(">>>", req.file);
     if (req.file) {
       await postsModels.addPost({
         utilisateur_id: req.auth.userId,

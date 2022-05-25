@@ -16,7 +16,7 @@
   
   <div class="nav-links">
     <router-link to="/user"><font-awesome-icon icon="fa-solid fa-user-gear" /></router-link>
-    <span @click="logout"><font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" /></span>
+    <span class="logout" @click="logout"><font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" /></span>
     <router-link to="/home"><font-awesome-icon icon="fa-solid fa-house" /></router-link>
     
   </div>
@@ -28,10 +28,10 @@ export default {
     name: 'NavBar',
     methods: {
       logout() {
-        //
+        //Qand l'utilisateur souhaite se déconnecter le token se supprime du local storage
         localStorage.removeItem('token')
 
-        //
+        //Retour a la page de connection
         this.$router.push('/')
       }
     },
@@ -49,8 +49,7 @@ export default {
   width: 100%;
   top: 0;
   background-color: #4d4d4d;
-  position: relative;
-  position: fixed;
+  //position: fixed;
   z-index: 999;
 }
 
@@ -72,13 +71,13 @@ export default {
   display: none;
 }
 
-.nav > .nav-links {
+.nav > .nav-links{
   display: inline;
   float: right;
   font-size: 18px;
 }
 
-.nav > .nav-links > a {
+.nav > .nav-links > a, .logout{
   display: inline-block;
   padding: 13px 10px 13px 10px;
   text-decoration: none;
@@ -86,7 +85,7 @@ export default {
   margin-right: 20px;
 }
 
-.nav > .nav-links > a:hover {
+.nav > .nav-links > a:hover, .logout:hover {
   background-color: rgba(0, 0, 0, 0.3);
 }
 
@@ -107,7 +106,7 @@ export default {
     height: 50px;
     padding: 13px;
   }
-  .nav > .nav-btn > label:hover,.nav  #nav-check:checked ~ .nav-btn > label {
+  .nav > .nav-btn > label:hover,.nav  #nav-check:checked ~ .nav-btn > label{
     background-color: rgba(0, 0, 0, 0.3);
   }
   .nav > .nav-btn > label > span {
@@ -127,11 +126,11 @@ export default {
     top: 50px;
     left: 0px;
   }
-  .nav > .nav-links > a {
+  .nav > .nav-links > a, .logout{
     display: block;
     width: 100%;
   }
-  .nav > .nav-links > span {
+  .nav > .nav-links {
     display: block;
     width: 100%;
   }
@@ -139,7 +138,7 @@ export default {
     height: 0px;
   }
   .nav > #nav-check:checked ~ .nav-links {
-    height: calc(30vh - 50px);
+    height: calc(30vh - 70px);
     overflow-y: auto;
   }
 }

@@ -10,7 +10,7 @@
       <h1>{{id}}. {{message}}</h1>
     <div class="box-comment">
       <input type="text" placeholder="Votre commentaire" v-model="content">
-      <button class="comment" @click="sendComment">Comment</button>
+      <button class="comment" @click="sendComment"><font-awesome-icon icon="fa-solid fa-paper-plane" /></button>
     </div>  
 
     <div class="all-comments" v-if="comments && comments.length !== 0">
@@ -109,14 +109,18 @@ h1 {
 
 input {
   width: 90%;
-  height: 2.62rem;
+  height: 2.7rem;
   
 }
 
 .comment {
-  position: absolute;
-  right: 21px;
-  height: 3rem;
+  font-size: 18px;
+  color: rgba(253, 45, 1, 255);
+  background-color: white;
+  position: relative;
+  right: 40px;
+  height: 2.65rem;
+  border: none;
 }
 
 

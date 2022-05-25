@@ -18,6 +18,7 @@ const routes = [
     },
   },
   {
+    //configuration pour l'absence de la nav bar sur cette page
     path: "/signup",
     name: "signup",
     component: SignupView,
@@ -26,6 +27,7 @@ const routes = [
     },
   },
   {
+    //configuration pour l'absence de la nav bar sur cette page
     path: "/",
     name: "login",
     component: LoginView,

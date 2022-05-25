@@ -25,9 +25,11 @@ export default {
 </script>
 
 
-<style lang="scss">
+<style>
 
-
+img {
+  max-width: 300px;
+}
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -4,14 +4,14 @@
       <label for="img_download">
         <font-awesome-icon
           @drop="dragFile"
-          class="icone"
+          class="post-icone"
           icon="fa-solid fa-file-image"
         />
-        <input type="file" multiple @change="downloadImg" />
+        <input class="post-img-select" type="file" multiple @change="downloadImg" />
       </label>
       <!--button @click="downloadImg" type="button" id="img_download" accept="image/png, image/jpeg, image/gif">-->
     </div>
-    <input
+    <input class="post-comment"
       type="text"
       placeholder="Quoi de neuf aujourd'hui !"
       v-model="content"
@@ -39,7 +39,6 @@ export default {
       this.file = e.dataTransfert.files;
     },
     async sendPost() {
-      console.log("::::")
       try {
         if (this.content === "" && this.file.length===0) throw "Votre post est vide";
 
@@ -71,7 +70,7 @@ export default {
 </script>
 
 <style scoped>
-.icone {
+.post-icone {
   font-size: 3rem;
 }
 
@@ -85,7 +84,7 @@ export default {
   padding: 10% 0 10% 0;
 }
 
-input {
+.post-comment {
   z-index: 1;
   padding: 2rem 1rem;
   width: 70%; /* THE WIDTH (%) */
