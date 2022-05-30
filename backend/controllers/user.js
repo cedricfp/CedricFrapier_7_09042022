@@ -4,6 +4,17 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const userModel = require("../models/user");
 
+exports.getMyInfo = async (req, res, next) => {
+  try {
+    const userId = req.auth.userId;
+    const userData = await userModel.findUserById(userId);
+    res.status(200).json(userData);
+  } catch (error) {
+    // throw { message: "Cet utilisateur existe deja" };
+    res.status(500).json({ message: "Cet utilisateur existe deja" });
+  }
+};
+
 //Middleware de création de l'utilisateur
 exports.signup = async (req, res, next) => {
   try {
@@ -62,10 +73,10 @@ exports.login = async (req, res, next) => {
 //Middleware pour la modification d'un utilisateur
 exports.modifyUser = async (req, res, next) => {
   try {
-    const userData = await User.modifyUser(req, req.body.userId);
+    console.log(req.params.id);
+    const userData = await userModel.modifyUser(req.body, req.params.id);
     res.status(201).json({
-      prenom: req.body.prenom,
-      nom: req.body.nom,
+      message: "Utilisateur modifié",
     });
   } catch (err) {
     return res.status(err.status).json({ error: err.msg });
@@ -75,7 +86,8 @@ exports.modifyUser = async (req, res, next) => {
 //Middleware pour la supression d'un utilisateur
 exports.deleteUser = async (req, res, next) => {
   try {
-    await User.deleteUser(req.body.userId);
+    console.log(req.params.id);
+    await userModel.deleteUser(req.params.id);
 
     res.status(201).json({ message: "Utilisateur supprimé !" });
   } catch (err) {

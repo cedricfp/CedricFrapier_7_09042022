@@ -21,7 +21,7 @@ module.exports.addPost = async function (data) {
 // Récupération d' une publication avec ses commentaires.
 module.exports.getPostWithComments = async function (idPost) {
   return await database.query(
-    "SELECT commentaire, comments.id id, users.prenom prenom, users.nom nom FROM posts JOIN comments ON comments.postid = posts.id JOIN users ON comments.userid = users.id WHERE posts.id=?",
+    "SELECT commentaire, comments.datecreation date, comments.id id, users.prenom prenom, users.nom nom FROM posts JOIN comments ON comments.postid = posts.id JOIN users ON comments.userid = users.id WHERE posts.id=?",
     [idPost]
   );
 };

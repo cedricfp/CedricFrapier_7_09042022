@@ -6,16 +6,16 @@
           @drop="dragFile"
           class="post-icone"
           icon="fa-solid fa-file-image"
+          @click="$refs.file.click()"
         />
-        <input class="post-img-select" type="file" multiple @change="downloadImg" />
+        <input class="post-img-select" type="file" multiple @change="downloadImg" style="display:none" ref="file"/>
       </label>
-      <!--button @click="downloadImg" type="button" id="img_download" accept="image/png, image/jpeg, image/gif">-->
     </div>
-    <input class="post-comment"
+    <textarea class="post-comment"
       type="text"
       placeholder="Quoi de neuf aujourd'hui !"
       v-model="content"
-    />
+    > </textarea>
     <button @click="sendPost">Poster</button>
   </div>
 </template>
@@ -71,15 +71,18 @@ export default {
 
 <style scoped>
 .post-icone {
-  font-size: 3rem;
+  font-size: 3.5rem;
+  margin-bottom: 30px;
 }
 
 .post {
-  margin-top: 20%;
-  margin-left: 10%;
+  margin-top: 6rem;
+  margin-right: auto;
+  margin-left: auto;
+  margin-bottom: 50px;
   width: 80%;
   background-color: rgba(249, 229, 197, 255);
-  border: 1px solid rgba(253, 45, 1, 255);
+  border: 1mm ridge rgba(229, 35, 35, 0.6);
   border-radius: 20px;
   padding: 10% 0 10% 0;
 }

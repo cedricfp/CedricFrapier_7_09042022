@@ -11,5 +11,7 @@ router.post("/login", userCtrl.login);
 router.put("/:id", auth, userCtrl.modifyUser);
 //Route de suppression de l'utilisateur
 router.delete("/:id", auth, userCtrl.deleteUser);
+//Route pour prendre les infos de l'utilisateur
+router.get("/me", auth, userCtrl.getMyInfo);
 
 module.exports = router;

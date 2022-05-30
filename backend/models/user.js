@@ -36,11 +36,12 @@ module.exports.findUserByEmail = async function (email) {
 //Recherche d'un utilisateur par son Id.
 module.exports.findUserById = async function (userId) {
   try {
-    const res = await database.getOne("SELECT * FROM `users` WHERE `id` = ?", [
-      userId,
-    ]);
+    const res = await database.getOne(
+      "SELECT email,id, nom, prenom FROM `users` WHERE `id` = ?",
+      [userId]
+    );
     if (res === null) throw { status: 401, msg: "L'utilisateur n'existe pas" };
-    return res;
+    return res[0];
   } catch (error) {
     throw {
       status: error.status || 500,
