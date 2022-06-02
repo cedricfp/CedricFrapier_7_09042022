@@ -8,7 +8,11 @@
      <img :src="image"/>
      </p>
      <div class="box-post">
-        <h1>{{id}}. {{message}}</h1> 
+        <h1>{{message}}</h1> 
+        <div class="box-post-modif">
+          <div class="box-post-modif-trash"><font-awesome-icon icon="fa-solid fa-trash" /></div>
+          <div class="box-post-modif-modif"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></div>
+        </div>
      </div>
       
       <div class="all-comments" v-if="comments && comments.length !== 0">
@@ -123,7 +127,17 @@ export default {
 }
 
 .box-post > h1 {
-  padding-bottom: 30px;
+  padding-bottom:10px;
+}
+
+.box-post > .box-post-modif {
+ display: flex;
+ justify-content: flex-end;
+}
+
+.box-post > .box-post-modif > .box-post-modif-trash,.box-post-modif-modif {
+  margin-right: 10px;
+  font-size: 1.5rem;
 }
 
 .box-comment {

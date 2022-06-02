@@ -3,6 +3,7 @@ const userModels = require("../models/user");
 const auth = require("../middlewares/auth");
 const fs = require("fs");
 
+//middleware de création du post
 exports.createPost = async (req, res, next) => {
   try {
     if (!req.body.content) {
@@ -30,6 +31,7 @@ exports.createPost = async (req, res, next) => {
   }
 };
 
+//middleware de modification du post
 exports.updatePost = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -45,6 +47,7 @@ exports.updatePost = async (req, res, next) => {
   }
 };
 
+//middleware de suppression du post
 exports.deletePost = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -60,6 +63,7 @@ exports.deletePost = async (req, res, next) => {
   }
 };
 
+//middleware pour séléctionner un post avec ses commentaires
 exports.getPostWithComments = async (req, res, next) => {
   try {
     const id = req.params.id;
@@ -70,6 +74,7 @@ exports.getPostWithComments = async (req, res, next) => {
   }
 };
 
+//middleware pour prendre tout les posts
 exports.getAllPosts = async (req, res, next) => {
   try {
     const [allPosts] = await postsModels.getAllPosts();

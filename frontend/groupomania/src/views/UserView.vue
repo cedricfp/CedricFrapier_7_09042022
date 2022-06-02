@@ -1,5 +1,7 @@
 <template>
   <div class="user" >
+    <h1> Hello {{prenom}} {{nom}}</h1>
+    <h2>Modifier/supprimer votre profil ?</h2>
     <br><br>
     <input type="text" v-model="nom">
     <br>
@@ -11,7 +13,7 @@
     <br>
     <button @click="modifyUser">MODIFIER</button>
     <br>
-    <button @click="deleteUser" disabled>SUPPRIMER</button>
+    <button @click="deleteUser">SUPPRIMER</button>
   </div>
     
 </template>
@@ -92,6 +94,8 @@ export default {
         this.prenom = res.data.prenom
         this.email = res.data.email
         this.id = res.data.id
+
+
       } catch (error) {
         let message = ""
         if (error.response) {
@@ -109,7 +113,20 @@ export default {
 
 <style scoped>
 h1 {
-  margin-top: 3rem;
+  margin-top: 5rem;
 }
+
+input {
+  margin-bottom: 10px;
+  width: 40%;
+  border: 1mm ridge rgba(229, 35, 35, 0.6);
+  border-radius: 10px;
+  padding: 10px;
+}
+
+button {
+  margin-bottom: 10px;
+}
+
 
 </style>

@@ -21,7 +21,7 @@ export default {
 
 p {
   width: 85%;
-  padding: 20px;
+  padding: 10px;
   border: 2px solid black;
   border-radius: 10px;
   display: flex;
@@ -31,11 +31,13 @@ p {
 
 p > .content {
   margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 20px;
   
 }
 
 
-p > .author {
+p > .author, .date {
   font-size: 12px;
   text-align: left;
   color: red;
