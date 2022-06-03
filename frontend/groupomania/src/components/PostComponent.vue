@@ -7,13 +7,23 @@
     <p  v-if="image" >
      <img :src="image"/>
      </p>
-     <div class="box-post">
-        <h1>{{message}}</h1> 
-        <div class="box-post-modif">
-          <div class="box-post-modif-trash"><font-awesome-icon icon="fa-solid fa-trash" /></div>
-          <div class="box-post-modif-modif"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></div>
-        </div>
-     </div>
+
+    <div v-if="isEditMode">
+        <input v-model="postMessage" type="text" />
+        <button @click="editPost()">Modifier</button>
+        <button @click="isEditMode = false">Annuler</button>
+    </div>
+
+     <div v-else class="box-post">
+      <h1>{{message}}</h1> 
+      <div v-if="canEdit" class="box-post-modif">
+        <div @click="deletePost()" class="box-post-modif-trash"><font-awesome-icon icon="fa-solid fa-trash" /></div>
+        <div @click="isEditMode = true" class="box-post-modif-modif"><font-awesome-icon icon="fa-solid fa-pen-to-square" /></div>
+      </div>
+    
+      </div>
+      
+  
       
       <div class="all-comments" v-if="comments && comments.length !== 0">
       <comment-post v-for="comment in comments" :key="comment.id" 
@@ -39,10 +49,12 @@ import CommentPost from './CommentPost.vue';
 export default {
   components: { CommentPost },
   name: "PostComponent",
-    props: ['message', 'author', 'date', 'image', 'id', 'comments'],
+    props: ['message', 'author', 'date', 'image', 'id', 'comments', 'canEdit'],
     data() {
       return {
-        content: ''
+        postMessage: this.message,
+        content: '',
+        isEditMode: false,
       }
     },
 
@@ -80,6 +92,47 @@ export default {
             
             this.$notify(res.data.message)
             
+        } catch (error) {
+            console.warn(error)
+            //affiche un message d'erreur
+            this.error = error.response.data.error
+        }
+        },
+
+        async deletePost() {
+            
+        const backendUrl = "http://localhost:3000/post/" + this.id
+    
+        try {
+            const token = localStorage.getItem('token')
+            const res = await axios.delete(backendUrl, {
+                headers : {
+                    Authorization: `Bearer ${token}`
+                }
+            } )
+            this.$emit('refresh-post', res.data)
+            this.$notify(res.data.message)
+        } catch (error) {
+            console.warn(error)
+            //affiche un message d'erreur
+            this.error = error.response.data.error
+        }
+        },
+
+        async editPost() {
+          const backendUrl = "http://localhost:3000/post/" + this.id
+    
+        try {
+            const modifiedPost = {content: this.postMessage}
+            const token = localStorage.getItem('token')
+            const res = await axios.put(backendUrl, modifiedPost, {
+                headers : {
+                    Authorization: `Bearer ${token}`
+                }
+            } )
+            this.isEditMode = false
+            this.$emit('refresh-post', res.data)
+            this.$notify(res.data.message)
         } catch (error) {
             console.warn(error)
             //affiche un message d'erreur

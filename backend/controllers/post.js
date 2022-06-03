@@ -52,8 +52,6 @@ exports.deletePost = async (req, res, next) => {
   try {
     const id = req.params.id;
     if (!id) throw { status: 400, msg: "manque id" };
-    const content = req.body.content;
-    if (!id) throw { status: 400, msg: "manque le contenu du message" };
 
     await postsModels.deletePost(id);
     res.status(201).json({ message: "Publication supprimée !" });

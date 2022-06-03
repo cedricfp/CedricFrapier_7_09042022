@@ -29,7 +29,7 @@ module.exports.getPostWithComments = async function (idPost) {
 // Récuperation de toutes les publications avec leurs commentaires.
 module.exports.getAllPosts = async function () {
   return await database.query(
-    "SELECT p.id,u.nom, u.prenom,p.image,p.datecreation,p.message FROM posts p join users u on u.id = p.userid ORDER BY p.datecreation DESC;"
+    "SELECT p.id,u.nom, u.prenom, u.id authorId,p.image,p.datecreation,p.message FROM posts p join users u on u.id = p.userid ORDER BY p.datecreation DESC;"
   );
 };
 

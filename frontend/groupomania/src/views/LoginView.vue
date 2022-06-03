@@ -48,7 +48,15 @@ export default {
         )throw "veuillez saisir tous les champs";
 
         const res = await axios.post(backendUrl, userToLog)
+        const userRes = await axios.get("http://localhost:3000/user/me", {
+            headers : {
+                Authorization: `Bearer ${res.data.token}`
+            }
+        })
+
         localStorage.setItem('token', res.data.token)
+        this.$store.commit('addUser', userRes.data)
+        
 
         // redirection vers le home
         this.$router.push('/home')

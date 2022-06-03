@@ -18,6 +18,7 @@
     <router-link to="/user"><font-awesome-icon icon="fa-solid fa-user-gear" /></router-link>
     <span class="logout" @click="logout"><font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" /></span>
     <router-link to="/home"><font-awesome-icon icon="fa-solid fa-house" /></router-link>
+
     
   </div>
 </div>
@@ -30,6 +31,7 @@ export default {
       logout() {
         //Qand l'utilisateur souhaite se déconnecter le token se supprime du local storage
         localStorage.removeItem('token')
+        this.$store.commit('removeUser')
 
         //Retour a la page de connection
         this.$router.push('/')

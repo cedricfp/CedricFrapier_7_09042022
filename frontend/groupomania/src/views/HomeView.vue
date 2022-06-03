@@ -12,6 +12,7 @@
         :message="post.message" 
         :date="post.datecreation" 
         :comments="post.comments" 
+        :canEdit="canEdit(post.authorId)"
         :author="`${post.nom} ${post.prenom}`" 
       />
     </div>
@@ -41,7 +42,13 @@ export default {
       allPosts: [],
     }
   },
-
+  computed: {
+    userData() {
+      const user = this.$store.state.user 
+      if (user) return {id: user.id, isAdmin: user.isAdmin}
+      return null
+    }
+  },
   methods: {
     async downloadImg() {
       const userToCreate = {
@@ -88,6 +95,12 @@ export default {
           }
       })
       this.allPosts = res.data
+    },
+    canEdit(authorId) {
+      if (this.userData) {
+        return this.userData.id === authorId || this.userData.isAdmin === 1
+      }
+      return false
     }
   },
 

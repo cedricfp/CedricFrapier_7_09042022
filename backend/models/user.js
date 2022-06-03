@@ -37,7 +37,7 @@ module.exports.findUserByEmail = async function (email) {
 module.exports.findUserById = async function (userId) {
   try {
     const res = await database.getOne(
-      "SELECT email,id, nom, prenom FROM `users` WHERE `id` = ?",
+      "SELECT email,id, nom, prenom, isAdmin FROM `users` WHERE `id` = ?",
       [userId]
     );
     if (res === null) throw { status: 401, msg: "L'utilisateur n'existe pas" };

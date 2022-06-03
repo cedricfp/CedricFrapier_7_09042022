@@ -13,6 +13,7 @@
 </template>
 
 <script>
+import axios from 'axios'
 import NavBar from './components/NavBar.vue';
 export default {
   components: { NavBar },
@@ -21,6 +22,18 @@ export default {
       return this.$route.meta.noNavbar
     }
   },
+  async mounted() {
+    const token = localStorage.getItem('token')
+    if (token) {
+      try {const userRes = await axios.get("http://localhost:3000/user/me", {
+            headers : {
+                Authorization: `Bearer ${token}`
+            }
+      })
+      this.$store.commit('addUser', userRes.data)
+      } catch (e) {console.log(e)}
+    }
+  }
 }
 </script>
 
