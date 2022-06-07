@@ -40,7 +40,7 @@ p > .content {
 p > .author, .date {
   font-size: 12px;
   text-align: left;
-  color: red;
+  color: #A30000;
 }
 
 </style>

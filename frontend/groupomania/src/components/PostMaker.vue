@@ -1,7 +1,7 @@
 <template>
   <div class="post">
     <div class="post_img">
-      <label for="img_download">
+      <label><p style="display:none">ajouter une image</p>
         <font-awesome-icon
           @drop="dragFile"
           class="post-icone"
@@ -11,11 +11,14 @@
         <input class="post-img-select" type="file" multiple @change="downloadImg" style="display:none" ref="file"/>
       </label>
     </div>
+    <label><p style="display:none">ajouter un message</p>
+
     <textarea class="post-comment"
       type="text"
       placeholder="Quoi de neuf aujourd'hui !"
       v-model="content"
     > </textarea>
+    </label>
     <button @click="sendPost">Poster</button>
   </div>
 </template>

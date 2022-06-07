@@ -3,6 +3,7 @@ import Vuex from "vuex";
 
 Vue.use(Vuex);
 
+//Permet d'appeler addUser et removeUser dans tout le code
 export default new Vuex.Store({
   state: {
     user: null,

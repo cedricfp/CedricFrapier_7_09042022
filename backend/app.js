@@ -8,6 +8,9 @@ const userRoute = require("./routes/user");
 const postRoute = require("./routes/post");
 const commentRoute = require("./routes/comment");
 
+// Protection contre certaines vulnérabiltés
+app.use(helmet({ crossOriginResourcePolicy: false }));
+
 app.use(express.json());
 
 app.use((req, res, next) => {
@@ -24,7 +27,7 @@ app.use((req, res, next) => {
   next();
 });
 
-app.use(express.static(__dirname + "/images"));
+app.use(express.static(path.join(__dirname + "/images")));
 
 // Pour cette route, on utilise le router usersRoutes
 app.use("/user", userRoute);

@@ -7,17 +7,18 @@
     </div>
   </div>
   <div class="nav-btn">
-    <label for="nav-check">
+    <label for="nav-check"><p style="display:none">nav</p>
       <span></span>
       <span></span>
       <span></span>
     </label>
   </div>
   
+  <!--Insertion des icones pour la navigation avec des router link pour acceder au differentes pages-->
   <div class="nav-links">
-    <router-link to="/user"><font-awesome-icon icon="fa-solid fa-user-gear" /></router-link>
+    <router-link to="/user" title="réglages"><font-awesome-icon icon="fa-solid fa-user-gear" /></router-link>
     <span class="logout" @click="logout"><font-awesome-icon icon="fa-solid fa-arrow-right-from-bracket" /></span>
-    <router-link to="/home"><font-awesome-icon icon="fa-solid fa-house" /></router-link>
+    <router-link to="/home" title="accueil"><font-awesome-icon icon="fa-solid fa-house" /></router-link>
 
     
   </div>

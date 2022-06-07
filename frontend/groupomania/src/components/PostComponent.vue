@@ -5,9 +5,9 @@
       <p class="date" v-if="date">{{formattedDate(date)}}</p>
     </div>
     <p  v-if="image" >
-     <img :src="image"/>
+     <img :src="image" alt="image téléversée"/>
      </p>
-
+    <!--Création des boutons pour modifier et supprimer un post par l'auteur ou l'admin avec editPost-->
     <div v-if="isEditMode">
         <input v-model="postMessage" type="text" />
         <button @click="editPost()">Modifier</button>
@@ -33,8 +33,11 @@
       />
     </div>
     <div class="box-comment">
-      <input type="text" placeholder="Votre commentaire" v-model="content">
-      <button class="comment" @click="sendComment"><font-awesome-icon icon="fa-solid fa-paper-plane" /></button>
+      <label>
+        <p style="display:none">ajouter un commentaire</p>
+        <input type="text" placeholder="Votre commentaire" v-model="content" name="addComment">
+      </label>
+      <button title="commenter" class="comment" @click="sendComment"><font-awesome-icon icon="fa-solid fa-paper-plane" /></button>
     </div>  
 
     
@@ -197,7 +200,7 @@ export default {
   margin-bottom: 20px;
 }
 
-.box-comment > input {
+.box-comment > label > input {
   width: 90%;
   height: 2.7rem;
   margin: auto;
